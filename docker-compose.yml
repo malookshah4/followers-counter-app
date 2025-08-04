@@ -1,0 +1,23 @@
+# This file defines our local development database service
+
+version: '3.8'
+services:
+  # This is the name of our database service
+  db:
+    image: postgres:14 # Use the official PostgreSQL version 14 image
+    restart: always # Always restart the container if it stops
+    environment:
+      # These are the credentials for your local database
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: myuser
+      POSTGRES_DB: mytiktokapp
+    ports:
+      # Maps port 5432 on your computer to port 5432 in the container
+      - '5432:5432'
+    volumes:
+      # This saves your database data on your computer, so it persists
+      # even if you stop and restart the container.
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

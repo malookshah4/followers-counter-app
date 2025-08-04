@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Our application's user model
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique // Optional, as we get it from TikTok
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation: A user has one TikTok account linked
+  tikTokAccount TikTokAccount?
+}
+
+// The connected TikTok account information
+model TikTokAccount {
+  id               String    @id // The open_id from TikTok
+  username         String    @map("display_name") // Their TikTok @handle
+  avatarUrl        String?   @map("avatar_url_100")
+  accessToken      String    @db.Text // Encrypt this in a real app!
+  refreshToken     String    @db.Text // Encrypt this in a real app!
+  expiresIn        Int
+  refreshExpiresIn Int
+  scope            String
+
+  // Relation: This TikTok account belongs to one User
+  user             User      @relation(fields: [userId], references: [id])
+  userId           String    @unique
+}
+
+// === NEW MODELS FOR STORING TREND DATA ===
+
+model AudioTrend {
+  id        String   @id
+  title     String
+  count     Int      @default(1)
+  author    String
+  lastSeen  DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model HashtagTrend {
+  id        String   @id @unique
+  name      String   @unique
+  count     Int      @default(1)
+  lastSeen  DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
