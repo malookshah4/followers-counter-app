@@ -1,30 +1,33 @@
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isAuthenticated: false,
   profile: null,
+  stars: 0, 
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // Action to set user state upon successful login
     setLogin: (state, action) => {
       state.isAuthenticated = true;
-      state.profile = action.payload;
+      state.profile = action.payload.profile; // Assumes profile is nested
+      state.stars = action.payload.stars; // Save stars on login
     },
-    // Action to reset user state on logout
     setLogout: (state) => {
       state.isAuthenticated = false;
       state.profile = null;
+      state.stars = 0; // Reset stars on logout
     },
+    // Action to update stars after creating a campaign or earning
+    updateStars: (state, action) => {
+        state.stars = action.payload;
+    }
   },
 });
 
-// THIS IS THE LINE THAT WAS MISSING/INCORRECT BEFORE
-// It exports the `setLogin` and `setLogout` action creators
-export const { setLogin, setLogout } = userSlice.actions;
+export const { setLogin, setLogout, updateStars } = userSlice.actions;
 
-// This exports the reducer function itself for the store
 export default userSlice.reducer;

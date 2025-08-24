@@ -24,6 +24,7 @@ export const redirectToTikTok = (req, res) => {
 
 
 // 2. Handle the callback from the frontend after user logs in on TikTok
+
 export const handleTikTokCallback = async (req, res) => {
   const { code } = req.query;
 
@@ -32,17 +33,10 @@ export const handleTikTokCallback = async (req, res) => {
   }
 
   try {
-    console.log("--- STARTING TIKTOK AUTH DEBUG ---");
-    console.log("Received Code:", code);
-    console.log("Using Client Key:", process.env.TIKTOK_CLIENT_KEY);
-    console.log("Using Client Secret:", process.env.TIKTOK_CLIENT_SECRET);
-    console.log("Using Redirect URI for API call:", `${process.env.FRONTEND_URL}/auth/callback`);
-    console.log("--- ENDING TIKTOK AUTH DEBUG ---");
+    // ... (The console.log debug block can be removed now if you wish)
 
-    // STEP 1: Exchange the authorization code for an access token from TikTok
     const tokenResponse = await axios.post(
       'https://open.tiktokapis.com/v2/oauth/token/',
-      // The data is the same
       new URLSearchParams({
         client_key: process.env.TIKTOK_CLIENT_KEY,
         client_secret: process.env.TIKTOK_CLIENT_SECRET,
@@ -50,17 +44,11 @@ export const handleTikTokCallback = async (req, res) => {
         grant_type: 'authorization_code',
         redirect_uri: `${process.env.FRONTEND_URL}/auth/callback`,
       }),
-      // === THIS IS THE NEW PART WE ARE ADDING ===
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
 
     const { access_token, open_id, ...tokenData } = tokenResponse.data;
 
-    // STEP 2: Use the access token to get the user's profile info from TikTok
     const userResponse = await axios.get(
       'https://open.tiktokapis.com/v2/user/info/?fields=open_id,display_name,avatar_url_100',
       { headers: { Authorization: `Bearer ${access_token}` } }
@@ -68,7 +56,6 @@ export const handleTikTokCallback = async (req, res) => {
 
     const tikTokUser = userResponse.data.data.user;
 
-    // STEP 3: Save the user to our database (or update if they already exist)
     const userInDb = await prisma.user.upsert({
       where: { id: tikTokUser.open_id },
       update: {
@@ -77,9 +64,9 @@ export const handleTikTokCallback = async (req, res) => {
             accessToken: access_token,
             refreshToken: tokenData.refresh_token,
             expiresIn: tokenData.expires_in,
-            refreshExpiresIn: tokenData.refresh_expires_in,
-          }
-        }
+            // The 'refreshExpiresIn' field that caused the error is now removed
+          },
+        },
       },
       create: {
         id: tikTokUser.open_id,
@@ -91,33 +78,35 @@ export const handleTikTokCallback = async (req, res) => {
             accessToken: access_token,
             refreshToken: tokenData.refresh_token,
             expiresIn: tokenData.expires_in,
-            refreshExpiresIn: tokenData.refresh_expires_in,
-            scope: tokenData.scope
-          }
-        }
+            scope: tokenData.scope,
+            // The 'refreshExpiresIn' field that caused the error is now removed
+          },
+        },
       },
       include: {
-        tikTokAccount: true
-      }
+        tikTokAccount: true,
+      },
     });
 
-    // STEP 4: Create a JWT for our application session
     const sessionToken = jwt.sign({ userId: userInDb.id }, process.env.JWT_SECRET, {
       expiresIn: '7d',
     });
 
-    // STEP 5: Send the session token and user profile back to the frontend
+    // In our new app, we need to send back the user's star balance as well
     res.json({
       token: sessionToken,
       user: {
-        id: userInDb.id,
-        username: userInDb.tikTokAccount.username,
-        avatarUrl: userInDb.tikTokAccount.avatarUrl
-      }
+        profile: {
+          id: userInDb.id,
+          username: userInDb.tikTokAccount.username,
+          avatarUrl: userInDb.tikTokAccount.avatarUrl,
+        },
+        stars: userInDb.stars
+      },
     });
 
   } catch (error) {
-    console.error('Error during TikTok auth:', error.response?.data || error.message);
+    console.error('Error during TikTok auth:', error);
     res.status(500).json({ message: 'Authentication failed' });
   }
 };

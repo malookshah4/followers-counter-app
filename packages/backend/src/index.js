@@ -1,37 +1,38 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from './routes/authRoutes.js'; // Re-enabled this
+import authRoutes from './routes/authRoutes.js'; 
 import userRoutes from './routes/userRoutes.js';
-import trendRoutes from './routes/trendRoutes.js';
+import campaignRoutes from './routes/campaignRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
+import storeRoutes from './routes/storeRoutes.js';
+import { initializeWebSocketServer } from './websocket.js';
+import http from 'http';
+import verificationRoutes from './routes/verificationRoutes.js';
+
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// --- START OF UPDATED CORS CONFIGURATION ---
-
 // Define which origins are allowed to connect to this backend
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://53e6f093a1b3.ngrok-free.app' // Your current ngrok URL
+  'https://a9e109e52e1c.ngrok-free.app' // Your current ngrok URL
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    // or if the origin is in our allowed list
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(null, true);
   }
 }));
 
-// --- END OF UPDATED CORS CONFIGURATION ---
 
 
 app.use(express.json());
@@ -42,9 +43,16 @@ app.get("/api/v1/status", (req, res) => {
 });
 
 // API Routes
-app.use('/api/v1/auth', authRoutes); // Re-enabled this
+app.use('/api/v1/auth', authRoutes); 
 app.use('/api/v1/user', userRoutes); 
-app.use('/api/v1/trends', trendRoutes);
+app.use('/api/v1/campaigns', campaignRoutes);
+app.use('/api/v1/tasks', taskRoutes);
+app.use('/api/v1/store', storeRoutes);
+app.use('/api/v1/verify', verificationRoutes);
+
+const server = http.createServer(app);
+
+initializeWebSocketServer(server);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

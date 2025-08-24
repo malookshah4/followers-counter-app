@@ -8,11 +8,17 @@ export default defineConfig({
   server: {
     host: true,
     hmr: {
-      host: '53e6f093a1b3.ngrok-free.app', // <-- UPDATE THIS
+      host: 'a9e109e52e1c.ngrok-free.app', // <-- UPDATE THIS
       protocol: 'wss',
     },
     allowedHosts: [
-      '53e6f093a1b3.ngrok-free.app' // <-- AND UPDATE THIS
-    ]
+      'a9e109e52e1c.ngrok-free.app' // <-- AND UPDATE THIS
+    ],
+    proxy: {
+      '/socket.io': { // Default path for WebSocket connections
+        target: 'ws://localhost:8080', // Your backend server
+        ws: true, // This is the crucial line that enables WebSocket proxying
+      },
+    },
   }
 })

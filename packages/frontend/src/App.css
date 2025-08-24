@@ -1,42 +1,809 @@
-#root {
-  max-width: 1280px;
+/* src/App.css */
+
+:root {
+  --primary-color: #007bff;
+  --background-color: #f4f7f9;
+  --card-background: #ffffff;
+  --text-color: #333;
+  --text-secondary: #777;
+  --border-color: #e0e0e0;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.app-container {
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 20px;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Main Layout */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 30px;
+}
+
+/* Generic Card */
+.card {
+  background-color: var(--card-background);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Profile Card (Left Column) */
+.profile-card {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.profile-stats div {
+  text-align: center;
+}
+
+.profile-stats .stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.profile-stats .stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.stars-display {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* Task Card (Center Column) */
+.task-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 70vh;
+}
+
+.task-media {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.task-media.profile {
+  border-radius: 50%;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.task-button:hover {
+  background-color: #0056b3;
+}
+
+.nav-button {
+  background: #e9ecef;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Offers & Campaigns (Right Column) */
+.offer-list, .campaign-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.offer-list li, .campaign-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.offer-list li:last-child, .campaign-list li:last-child {
+  border-bottom: none;
+}
+
+
+.offer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.offer-item:last-child {
+  border-bottom: none;
+}
+
+.offer-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.offer-main-text {
+  font-weight: 500;
+}
+
+.offer-cost-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.offer-button {
+  background-color: #e9ecef;
+  color: var(--text-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.offer-button:hover {
+  background-color: #dee2e6;
+}
+
+
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background: var(--card-background);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  color:black;
+}
+
+.dialog-content h2 {
+  margin-top: 0;
+}
+
+.dialog-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dialog-content input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box; /* Important for padding */
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.button-secondary {
+  background-color: #e9ecef;
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error-text {
+    color: #e53e3e;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.nav-button {
+  background: #e9ecef;
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Changed from 50% */
+  width: 45px; /* Slightly wider */
+  height: 45px; /* Slightly taller */
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nav-button:hover {
+  background-color: #dee2e6;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: var(--text-color);
+}
+
+.task-info {
+  margin-top: 15px;
+  padding: 0 10px;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  /* Truncate long text with an ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+}
+
+
+* New Styles for the Beautiful Campaign List */
+.campaign-item {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.campaign-item:last-child {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+
+.campaign-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.campaign-main-text {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.campaign-progress-text {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Overwrite the old progress bar styles with this new, beautiful version */
+.progress-bar {
+  background-color: #e9ecef;
+  border-radius: 10px; /* Rounded corners like the inspiration */
+  height: 8px; /* Slightly thicker for a better look */
+  width: 100%;
+  overflow: hidden; /* This makes the inner bar rounded too */
+}
+
+.progress-bar-inner {
+  background-color: #20c997; /* A beautiful teal color inspired by your image */
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
+
+/* Live Counter Page Styles */
+.live-counter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: var(--card-background);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.counter-username {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.counter-display {
+  display: flex;
+  gap: 8px;
+}
+
+
+.header-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-link-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link-button:hover {
+  background-color: #e9ecef;
+  color: var(--text-color);
+}
+
+/* Full Screen Live Counter Styles */
+.live-counter-fullscreen {
+  /* This makes the container take up the entire screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #414345, #232526); 
+  background: linear-gradient(to right, #414345, #232526); 
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100; /* Ensure it's on top of other content */
+}
+
+.counter-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.counter-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  margin-bottom: 15px;
+}
+
+.counter-username {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.counter-label {
+  font-size: 1rem;
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.full-counter-display {
+  display: flex;
+  gap: 10px;
+}
+
+.digit-card {
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 5rem;
+  font-weight: bold;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.back-to-dash-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 110;
+  backdrop-filter: blur(5px);
+}
+
+
+/* Styles for the Customize Switch */
+.customize-switch {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  background: rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  border-radius: 20px;
+  z-index: 110;
+  backdrop-filter: blur(5px);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.full-counter-display {
+  display: flex;
+  gap: 10px; /* Spacing between digit cards */
+  align-items: center;
+}
+
+/* Bigger Counter Styles */
+.digit-container {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  height: 7rem; /* Changed from 6rem to 7rem */
+  overflow: hidden;
+}
+
+/* This is the vertical strip of numbers that will slide */
+.digit-reel {
+  transition: transform 1.8s cubic-bezier(0.65, 0, 0.35, 1); /* Smooth animation */
+}
+
+/* This styles each number in the reel */
+.digit-reel span {
+  display: block;
+  font-size: 6rem; /* Changed from 6rem to 7rem */
+  font-weight: bold;
+  padding: 0 30px; /* Increased padding */
+  color: #fff;
+  height: 6rem; /* Changed from 6rem to 7rem */
+  line-height: 6rem; /* Changed from 6rem to 7rem */
+  text-align: center;
+}
+
+.digit-wrapper {
+  background-color: #1a1a1a;
+  padding: 20px 0; /* Vertical padding */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 60px; /* Control the width of each digit card */
+  text-align: center;
+}
+
+
+
+
+.layout-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 110;
+}
+
+.layout-switcher select {
+  /* This creates the beautiful custom dropdown */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 30px 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013%203.7%203.7%208%205.4%2013%205.4h255.1c5%200%209.3-1.8%2013-5.4%203.7-3.7%205.4-8%205.4-13%200-5-1.8-9.2-5.4-12.8zM287%20199.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%20212.2c0%205%201.8%209.3%205.4%2013%203.7%203.7%208%205.4%2013%205.4h255.1c5%200%209.3-1.8%2013-5.4%203.7-3.7%205.4-8%205.4-13%200-5-1.8-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: .65em auto;
+}
+.layout-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 110;
+}
+
+.layout-switcher select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* New Content Container for Layouts */
+.live-counter-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.live-counter-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.live-counter-content.vertical {
+  flex-direction: column;
+}
+.live-counter-content.horizontal {
+  flex-direction: row;
+  gap: 40px;
+}
+
+/* Hides the username when horizontal layout is active */
+.horizontal .counter-username {
+  display: none;
+}
+.horizontal .counter-profile {
+  margin-bottom: 0;
+}
+.horizontal .counter-avatar {
+  width: 100px;
+  height: 100px;
+}
+/* Horizontal Layout */
+.live-counter-content.horizontal {
+  flex-direction: row;
+  gap: 40px;
+}
+
+/* Adjustments for horizontal view */
+.horizontal .counter-profile {
+  margin-bottom: 0;
+}
+.horizontal .counter-avatar {
+  width: 100px;
+  height: 100px;
+}
+.horizontal .counter-username {
+  font-size: 1.5rem;
+}
+
+
+/* This block of code will only apply on screens 768px wide or smaller */
+@media (max-width: 768px) {
+
+  /* --- General Layout --- */
+  .app-container {
+    padding: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  /* --- Dashboard Page --- */
+  .main-layout {
+    /* Change the 3-column grid to a single column */
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* --- Live Counter Page --- */
+  .live-counter-fullscreen {
+    padding: 20px 10px; /* Add some padding for small screens */
+    justify-content: center;
+  }
+  
+  .counter-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .counter-username {
+    font-size: 1.5rem;
+  }
+  
+  /* Make the counter numbers smaller to fit the screen */
+  .digit-container {
+    height: 4rem;
+    padding: 0 15px;
+  }
+  
+  .digit-reel span {
+    font-size: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+  }
+  
+  .Comma {
+      font-size: 3rem;
+  }
+  
+  /* Force horizontal layout to stack vertically on mobile */
+  .live-counter-content.horizontal {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .layout-switcher {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .back-to-dash-button {
+    top: 10px;
+    left: 10px;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Inside your existing @media (max-width: 768px) block */
+@media (max-width: 768px) {
+  /* ... keep the other mobile styles ... */
+
+  /* NEW: Make the back button smaller */
+  .back-to-dash-button {
+    font-size: 0; /* Hide the text */
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-}
+  
+  /* NEW: Style the dropdown to be just an icon */
+  .layout-switcher select {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    text-indent: -999px; /* Hide the text */
+    background-position: center; /* Center the arrow icon */
+  }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  /* NEW: Make the "Customize" text smaller */
+  .customize-switch span {
+    font-size: 0.8rem;
+  }
 }
