@@ -1,16 +1,19 @@
+// packages/frontend/src/pages/HomePage.jsx
+
 import React from 'react';
 
 function HomePage() {
   const handleLogin = () => {
-    // This link points to our backend, which will then redirect the user to TikTok
-    window.location.href = 'http://localhost:8080/api/v1/auth/tiktok';
+    // This now uses the live backend URL from your Vercel environment variables
+    const liveBackendUrl = import.meta.env.VITE_API_BASE_URL;
+    window.location.href = `${liveBackendUrl}/api/v1/auth/tiktok`;
   };
 
   return (
     <div className="App">
-      <h1>Welcome to AI Creator Co-Pilot 🤖</h1>
+      <h1>Welcome to AI Co-Pilot 🤖</h1>
       <p>Your strategic partner for TikTok content.</p>
-      <button onClick={handleLogin} style={{ padding: '10px 20px', fontSize: '16px' }}>
+      <button onClick={handleLogin} className="task-button" style={{ padding: '12px 24px', fontSize: '1rem' }}>
         Login with TikTok
       </button>
     </div>
