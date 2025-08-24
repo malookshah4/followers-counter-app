@@ -5,23 +5,29 @@ import HomePage from "./pages/HomePage";
 import AuthCallback from "./pages/AuthCallback";
 import DashboardPage from "./pages/DashboardPage";
 import StorePage from "./pages/StorePage";
-import "./App.css";
-import AuthenticatedRoutes from "./AuthenticatedRoutes.jsx";
+import EarnStarsPage from "./pages/EarnStarsPage";
+import CampaignsPage from "./pages/CampaignsPage";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
 import LiveCounterPage from "./pages/LiveCounterPage";
+import AuthenticatedRoutes from "./AuthenticatedRoutes.jsx";
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
         <Routes>
-          {/* Public Routes */}
+          {/* Public routes that anyone can see */}
           <Route path="/" element={<HomePage />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
 
-          {/* Authenticated Routes */}
+          {/* These routes are protected and only visible after logging in */}
           <Route element={<AuthenticatedRoutes />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/campaigns" element={<CampaignsPage />} />
+            <Route path="/earn" element={<EarnStarsPage />} />
             <Route path="/store" element={<StorePage />} />
+            <Route path="/order/success" element={<OrderSuccessPage />} />
             <Route path="/live-counter" element={<LiveCounterPage />} />
           </Route>
         </Routes>
