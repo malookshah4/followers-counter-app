@@ -1,6 +1,7 @@
 // packages/frontend/src/pages/HomePage.jsx
 
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   const handleLogin = () => {
