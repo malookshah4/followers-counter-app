@@ -1,6 +1,17 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
+
+console.log("--- SERVER STARTING: CHECKING ENVIRONMENT VARIABLES ---");
+console.log("TIKTOK_CLIENT_KEY:", process.env.TIKTOK_CLIENT_KEY ? "Loaded Successfully" : "!!! MISSING OR UNDEFINED !!!");
+console.log("TIKTOK_CLIENT_SECRET:", process.env.TIKTOK_CLIENT_SECRET ? "Loaded Successfully" : "!!! MISSING OR UNDEFINED !!!");
+console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded Successfully" : "!!! MISSING OR UNDEFINED !!!");
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? "Loaded Successfully" : "!!! MISSING OR UNDEFINED !!!");
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+console.log("----------------------------------------------------");
+
+
 import authRoutes from './routes/authRoutes.js'; 
 import userRoutes from './routes/userRoutes.js';
 import campaignRoutes from './routes/campaignRoutes.js';
