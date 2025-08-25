@@ -10,6 +10,8 @@ import CampaignsPage from "./pages/CampaignsPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import LiveCounterPage from "./pages/LiveCounterPage";
 import AuthenticatedRoutes from "./AuthenticatedRoutes.jsx";
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'; // <-- Add this
+import TermsOfServicePage from './pages/TermsOfServicePage';
 import "./App.css";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           {/* Public routes that anyone can see */}
           <Route path="/" element={<HomePage />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} /> {/* <-- Add this */}
+          <Route path="/terms" element={<TermsOfServicePage />} />
 
           {/* These routes are protected and only visible after logging in */}
           <Route element={<AuthenticatedRoutes />}>
