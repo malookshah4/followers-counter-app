@@ -19,6 +19,8 @@ export const redirectToTikTok = (req, res) => {
   });
 
   // Redirect the user's browser to the TikTok authorization page
+  console.log("--- REDIRECTING TO TIKTOK WITH PARAMS:", params.toString());
+
   res.redirect(`${TIKTOK_AUTH_URL}?${params.toString()}`);
 };
 
