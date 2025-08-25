@@ -29,7 +29,7 @@ function AuthCallback() {
 
             localStorage.setItem('authToken', token);
             dispatch(setLogin(user));
-            navigate('/dashboard');
+            navigate('/live-counter');
 
           } catch (error) {
             console.error('Failed to finalize authentication', error);
