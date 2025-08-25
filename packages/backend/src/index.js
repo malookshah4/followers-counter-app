@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 8080;
 // Define which origins are allowed to connect to this backend
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://a9e109e52e1c.ngrok-free.app' // Your current ngrok URL
+  process.env.FRONTEND_URL // Your current ngrok URL
 ];
 
 app.use(cors({
