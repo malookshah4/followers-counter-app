@@ -5,7 +5,7 @@ function PrivacyPolicyPage() {
     <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
       <h1>Privacy Policy for AI Co-Pilot</h1>
       <p><strong>Last Updated:</strong> August 25, 2025</p>
-      <p>This Privacy Policy describes how AI Co-Pilot ("we," "us," or "our") collects, uses, and discloses your information when you use our Live Follower Counter service (the "Service").</p>
+      <p>This Privacy Policy describes how AI Co-Pilot we  collects, uses, and discloses your information when you use our Live Follower Counter service.</p>
 
       <h2>Information We Collect</h2>
       <p>To provide the Service, we require you to log in with your TikTok account. By doing so, you grant us permission to access specific information from your TikTok profile through the official TikTok API. The only information we collect and process is:</p>
