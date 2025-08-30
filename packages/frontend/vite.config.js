@@ -8,11 +8,11 @@ export default defineConfig({
   server: {
     host: true,
     hmr: {
-      host: 'a9e109e52e1c.ngrok-free.app', // <-- UPDATE THIS
+      host: 'follwers-counter-app.vercel.app', // <-- UPDATE THIS
       protocol: 'wss',
     },
     allowedHosts: [
-      'a9e109e52e1c.ngrok-free.app' // <-- AND UPDATE THIS
+      'follwers-counter-app.vercel.app' // <-- AND UPDATE THIS
     ],
     proxy: {
       '/socket.io': { // Default path for WebSocket connections
